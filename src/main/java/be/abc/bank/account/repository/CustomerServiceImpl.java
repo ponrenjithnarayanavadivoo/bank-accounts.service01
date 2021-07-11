@@ -1,7 +1,7 @@
 /**
  * 
  */
-package be.abc.bank.accounts.repository;
+package be.abc.bank.account.repository;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
-import be.abc.bank.accounts.entity.CustomerEntity;
+import be.abc.bank.account.entity.CustomerEntity;
 
 /**
  * @author Renjith
@@ -30,7 +30,7 @@ public class CustomerServiceImpl implements ICustomerService {
 
 		try {
 			return myCustomerRepository.findById(customerId)
-					.orElseThrow(() -> new EntityNotFoundException("Employee not found for this id :: " + customerId));
+					.orElseThrow(() -> new EntityNotFoundException("Customer not found for this id :: " + customerId));
 		} catch (EntityNotFoundException e) {
 			throw e;
 		}

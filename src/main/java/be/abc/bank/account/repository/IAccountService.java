@@ -1,9 +1,14 @@
-package be.abc.bank.accounts.repository;
+package be.abc.bank.account.repository;
 
 import java.util.List;
 
-import be.abc.bank.accounts.entity.AccountEntity;
+import be.abc.bank.account.entity.AccountEntity;
 
+/**
+ * Account service interface for account entity
+ * @author Renjith
+ *
+ */
 public interface IAccountService {
 	
 	List<AccountEntity> getAccountDetailsById(int customerId);

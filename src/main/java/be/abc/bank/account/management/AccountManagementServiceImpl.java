@@ -1,7 +1,6 @@
-package be.abc.bank.accounts.management;
+package be.abc.bank.account.management;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
@@ -10,28 +9,40 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import be.abc.bank.account.entity.AccountEntity;
+import be.abc.bank.account.entity.CustomerEntity;
+import be.abc.bank.account.foundation.ApplicationUtil;
+import be.abc.bank.account.repository.IAccountService;
+import be.abc.bank.account.repository.ICustomerService;
 import be.abc.bank.accounts.accounts.v1.model.AccountDetailsInfo;
 import be.abc.bank.accounts.accounts.v1.model.AccountInfo;
 import be.abc.bank.accounts.accounts.v1.model.CustomerInfo;
 import be.abc.bank.accounts.accounts.v1.model.CustomerRequestInfo;
-import be.abc.bank.accounts.entity.AccountEntity;
-import be.abc.bank.accounts.entity.CustomerEntity;
-import be.abc.bank.accounts.foundation.ApplicationUtil;
-import be.abc.bank.accounts.repository.IAccountService;
-import be.abc.bank.accounts.repository.ICustomerService;
+
+/**
+ * Manager service supervise the account service operations or communications.
+ * It is used to create the business logic and communicating with other sub ordinate services.
+ *
+ * @author Renjith
+ *
+ */
 
 @Component
 public class AccountManagementServiceImpl implements IAccountManagementService {
-
-	private static final Logger LOGGER = Logger.getLogger(AccountManagementServiceImpl.class);
 
 	@Autowired
 	IAccountService myAccountService;
 	@Autowired
 	ICustomerService myCustomerService;
 
+	/**
+	 * create a new account for customer
+	 * @param anInput CustomerRequestInfo
+	 * @return String
+	 */
+	
 	@Override
-	public String createAccounts(CustomerRequestInfo anInput) {
+	public String createAccount(CustomerRequestInfo anInput) {
 		long accountNumber;
 		AccountEntity aAccountEntity = new AccountEntity();
 
@@ -40,43 +51,71 @@ public class AccountManagementServiceImpl implements IAccountManagementService {
 		aAccountEntity.setCreationTimeStamp(ApplicationUtil.currentTimeStamp());
 		accountNumber = ApplicationUtil.getAccountNumber();
 		aAccountEntity.setaccountId(accountNumber);
+
 		myAccountService.createAccount(aAccountEntity);
 
-		return "" + accountNumber;
+		return String.valueOf(accountNumber);
 	}
 
+	/**
+	 * get the account detail from account table
+	 * @param customerId int
+	 * @return AccountDetailsInfo
+	 */
 	@Override
 	public AccountDetailsInfo getAccountDetail(int customerId) {
 
+		AccountDetailsInfo aAccountDetailsInfo = null;
+
 		List<AccountEntity> theAccountEntity = getAccountDetailsbyId(customerId);
+		if (theAccountEntity.isEmpty()) {
+			return aAccountDetailsInfo;
+		}
 		List<AccountInfo> theAccountDetails = theAccountEntity.stream().map(accountEntity -> {
 			AccountInfo theAccountInfo = new AccountInfo();
 			theAccountInfo.setAccountType(accountEntity.getAccountType());
 			theAccountInfo.setBalance(accountEntity.getBalance());
 			theAccountInfo.setCustomerId(accountEntity.getCustomerId());
-			theAccountInfo.setCreatedDate(accountEntity.getCreationTimeStamp()!=null ? accountEntity.getCreationTimeStamp().toString():"" );
-			theAccountInfo.setModifiedDate(accountEntity.getModifiedTimeStamp() !=null ? accountEntity.getModifiedTimeStamp().toString() : "");
-			theAccountInfo.setAccountNumber("" + accountEntity.getAccountId());
+			theAccountInfo.setCreatedDate(
+					accountEntity.getCreationTimeStamp() != null ? accountEntity.getCreationTimeStamp().toString()
+							: "");
+			theAccountInfo.setModifiedDate(
+					accountEntity.getModifiedTimeStamp() != null ? accountEntity.getModifiedTimeStamp().toString()
+							: "");
+			theAccountInfo.setAccountNumber(String.valueOf(accountEntity.getAccountId()));
 			return theAccountInfo;
 		}).collect(Collectors.toList());
-		myAccountService.getAccountDetailsById(customerId);
-		AccountDetailsInfo aAccountDetailsInfo = new AccountDetailsInfo();
+		aAccountDetailsInfo = new AccountDetailsInfo();
 		aAccountDetailsInfo.setAccountDetails(theAccountDetails);
 
 		return aAccountDetailsInfo;
 	}
 
+	/**
+	 * get the customer detail from customer table
+	 * @param customerId int
+	 * @return CustomerInfo
+	 */
 	@Override
 	public CustomerInfo getCustomerDetail(int customerId) {
 
-		CustomerEntity theCustomerEntity = myCustomerService.getCustomerDetails(customerId);
-		CustomerInfo aCustomerInfo = new CustomerInfo();
-		aCustomerInfo.setCustomerName(theCustomerEntity.getCustomerName());
-		aCustomerInfo.setCustomerSurName(theCustomerEntity.getCustomerSurname());
-
+		CustomerInfo aCustomerInfo = null;
+		try {
+			CustomerEntity theCustomerEntity = myCustomerService.getCustomerDetails(customerId);
+			aCustomerInfo = new CustomerInfo();
+			aCustomerInfo.setCustomerName(theCustomerEntity.getCustomerName());
+			aCustomerInfo.setCustomerSurName(theCustomerEntity.getCustomerSurname());
+		} catch (EntityNotFoundException e) {
+			return aCustomerInfo;
+		}
 		return aCustomerInfo;
 	}
 
+	/**
+	 * To update the account details in the account table
+	 * @param accountId long
+	 * @param CustomerRequestInfo anInput
+	 */
 	@Override
 	public void updateAccountDetail(long accountId, CustomerRequestInfo anInput) {
 
@@ -92,8 +131,9 @@ public class AccountManagementServiceImpl implements IAccountManagementService {
 	}
 
 	/**
-	 * @param anInput
-	 * @return
+	 * Get the account details by using the customer id 
+	 * @param anInput int
+	 * @return List
 	 */
 	private List<AccountEntity> getAccountDetailsbyId(int customerId) {
 

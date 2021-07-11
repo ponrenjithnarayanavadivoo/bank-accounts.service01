@@ -1,8 +1,13 @@
-package be.abc.bank.accounts;
+package be.abc.bank.account;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * Main application for account service.
+ * @author Renjith
+ *
+ */
 @SpringBootApplication
 public class AccountMainApplication {
 

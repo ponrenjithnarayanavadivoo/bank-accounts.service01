@@ -1,17 +1,19 @@
-package be.abc.bank.accounts.repository;
+package be.abc.bank.account.repository;
 
 import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import be.abc.bank.accounts.entity.AccountEntity;
-import be.abc.bank.accounts.entity.CustomerEntity;
+import be.abc.bank.account.entity.AccountEntity;
 
+/**
+ * Account service used to communicate with relational database services / repository
+ * @author Renjith
+ *
+ */
 @Service
 public class AccountServiceImpl implements IAccountService {
 
@@ -34,8 +36,7 @@ public class AccountServiceImpl implements IAccountService {
 	public void updateAccount(AccountEntity t,long accountId) {
 
 		try {
-			 myAccountRepository.findById(accountId)
-					.orElseThrow(() -> new EntityNotFoundException("A ccound details not found :: " + accountId));
+			 myAccountRepository.findById(accountId);
 			 myAccountRepository.save(t);
 		} catch (EntityNotFoundException e) {
 			throw e;
