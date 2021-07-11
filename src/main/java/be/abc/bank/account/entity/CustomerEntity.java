@@ -20,7 +20,6 @@ import javax.persistence.Table;
 public class CustomerEntity implements Serializable {
 	
 	private static final long serialVersionUID = -3369462373899422833L;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "customer_id")
