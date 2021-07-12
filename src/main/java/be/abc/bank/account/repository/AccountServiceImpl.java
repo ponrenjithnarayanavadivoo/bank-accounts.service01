@@ -1,8 +1,9 @@
 package be.abc.bank.account.repository;
 
+import java.sql.Timestamp;
 import java.util.List;
 
-import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,11 +11,12 @@ import org.springframework.stereotype.Service;
 import be.abc.bank.account.entity.AccountEntity;
 
 /**
- * Account service used to communicate with relational database services / repository
+ * Account service used to communicate with relational database services 
  * @author Renjith
  *
  */
 @Service
+@Transactional
 public class AccountServiceImpl implements IAccountService {
 
 	@Autowired
@@ -33,16 +35,15 @@ public class AccountServiceImpl implements IAccountService {
 	}
 
 	@Override
-	public void updateAccount(AccountEntity t,long accountId) {
+	public void updateAccount(long balance, Timestamp timestamp, long accountId) {
 
 		try {
 			 myAccountRepository.findById(accountId);
-			 myAccountRepository.save(t);
-		} catch (EntityNotFoundException e) {
+			 myAccountRepository.saveAccountInfoById(balance,timestamp,accountId);
+		} catch (Exception e) {
 			throw e;
 		}
 
-		
 	}
 
 }

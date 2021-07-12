@@ -3,13 +3,9 @@
  */
 package be.abc.bank.account.repository;
 
-import java.util.List;
-
-import javax.management.AttributeNotFoundException;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import be.abc.bank.account.entity.CustomerEntity;

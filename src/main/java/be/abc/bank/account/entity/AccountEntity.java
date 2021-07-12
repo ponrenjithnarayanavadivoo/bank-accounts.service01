@@ -4,19 +4,18 @@
 package be.abc.bank.account.entity;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 import be.abc.bank.account.foundation.ApplicationUtil;
 
 /**
+ * AccountEntity : Account table
+ * 
  * @author Renjith
  *
  */

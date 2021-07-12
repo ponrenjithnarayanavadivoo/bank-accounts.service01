@@ -45,6 +45,7 @@ public class AccountServiceController {
 		try {
 			return new ResponseEntity<CustomerInfo>(myManagerService.getCustomerDetail(customerId), HttpStatus.OK);
 		} catch (Exception e) {
+			LOGGER.error(e);
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
 					ApplicationConstants.INTERNAL_SERVER_ERROR, e);
 		}
@@ -58,6 +59,7 @@ public class AccountServiceController {
 
 			return new ResponseEntity<String>(myManagerService.createAccount(aInput), HttpStatus.OK);
 		} catch (Exception e) {
+			LOGGER.error(e);
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
 					ApplicationConstants.INTERNAL_SERVER_ERROR, e);
 		}
@@ -74,6 +76,7 @@ public class AccountServiceController {
 			return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
 		}
 		catch (Exception e) {
+			LOGGER.error(e);
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
 					ApplicationConstants.INTERNAL_SERVER_ERROR, e);
 		}
@@ -88,6 +91,7 @@ public class AccountServiceController {
 			return myManagerService.getAccountDetail(customerId);
 		}
 		catch (Exception e) {
+			LOGGER.error(e);
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
 					ApplicationConstants.INTERNAL_SERVER_ERROR, e);
 		}

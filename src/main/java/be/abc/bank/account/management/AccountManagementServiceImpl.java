@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -119,14 +118,7 @@ public class AccountManagementServiceImpl implements IAccountManagementService {
 	@Override
 	public void updateAccountDetail(long accountId, CustomerRequestInfo anInput) {
 
-		AccountEntity aAccountEntity = new AccountEntity();
-
-		aAccountEntity.setCustomerId(anInput.getCustomerId());
-		aAccountEntity.setAccountType(anInput.getAccountType());
-		aAccountEntity.setaccountId(accountId);
-		aAccountEntity.setModifiedTimeStamp(ApplicationUtil.currentTimeStamp());
-		aAccountEntity.setBalance(anInput.getCreditAmount());
-		myAccountService.updateAccount(aAccountEntity, accountId);
+		myAccountService.updateAccount(anInput.getCreditAmount(), ApplicationUtil.currentTimeStamp(), accountId);
 
 	}
 

@@ -42,7 +42,7 @@ class AccountApplicationTests {
 	@Test
 	public void givenCustomer_whenGetCustomer_thenStatus200() throws Exception {
 
-		mvc.perform(get("http://localhost:8082/abc/accounts/v1/getCustomerDetail/7654310").header("Request-id", "1")
+		mvc.perform(get("http://localhost:9082/abc/accounts/v1/getCustomerDetail/7654310").header("Request-id", "1")
 				.header("version", "1.0.0").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
 				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.customerName", is("Jason")));
@@ -56,7 +56,7 @@ class AccountApplicationTests {
 		aCustomerRequestInfo.setCustomerId(7654310);
 		aCustomerRequestInfo.setCreditAmount((long) 1000);
 
-		createAccountMvcResult = mvc.perform(post("http://localhost:8082/abc/accounts/v1/createAccount")
+		createAccountMvcResult = mvc.perform(post("http://localhost:9082/abc/accounts/v1/createAccount")
 				.header("Request-id", "1").header("version", "1.0.0").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(aCustomerRequestInfo)))
 				.andExpect(status().isOk()).andReturn();

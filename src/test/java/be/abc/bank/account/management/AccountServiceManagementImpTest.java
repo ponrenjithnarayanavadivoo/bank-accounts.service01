@@ -15,7 +15,6 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import be.abc.bank.account.entity.AccountEntity;
-import be.abc.bank.account.management.AccountManagementServiceImpl;
 import be.abc.bank.account.repository.IAccountService;
 import be.abc.bank.accounts.accounts.v1.model.CustomerRequestInfo;
 

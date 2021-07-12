@@ -1,5 +1,6 @@
 package be.abc.bank.account.repository;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import be.abc.bank.account.entity.AccountEntity;
@@ -14,6 +15,6 @@ public interface IAccountService {
 	List<AccountEntity> getAccountDetailsById(int customerId);
 
 	void createAccount(AccountEntity t );
-
-	void updateAccount(AccountEntity t ,long accountId);
+	
+	void updateAccount(long balance,Timestamp timestamp,long accountId);
 }
