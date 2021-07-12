@@ -1,5 +1,5 @@
 # Account Service
-  This is a rest kind of service used to create current account for existing ABC cutomers and retreiving the account details from the relational database.
+  REST Account service is used to create current account for existing ABC bank cutomers and retreive the account details from the relational database.
   
 ### Prerequisites
 You need the following installed and available in your $PATH:
@@ -9,7 +9,7 @@ You need the following installed and available in your $PATH:
 
 ####  Maven builds:
 ```
-mvn install
+mvn clean install
 ```
 
 #### Execution
@@ -22,3 +22,8 @@ http://localhost:9082/
 
 #### To check the DB
 http://localhost:9082/h2-ui/
+
+###  Configuration
+
+The api is centralized on GitHub public repository and the settings.xml in the root folder needs to be configured on your local machine.
+
