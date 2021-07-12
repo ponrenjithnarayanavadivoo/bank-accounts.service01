@@ -14,7 +14,7 @@ mvn install
 
 #### Execution
 ```
-java -jar  transaction-0.0.1.jar
+java -jar  accounts-0.0.1.jar
 ```
 
 #### To check the application deployed successfully on your local machine 
