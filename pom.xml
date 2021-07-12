@@ -15,7 +15,7 @@
 
 	<groupId>bank.accounts.service</groupId>
 	<artifactId>accounts</artifactId>
-	<version>0.0.1</version>
+	<version>1.0.0</version>
 	<name>Accounts Service</name>
 	<description>Spring Boot project for Accouunts Service</description>
 
@@ -52,7 +52,7 @@
 		<dependency>
 			<groupId>be.abc.bank.accounts</groupId>
 			<artifactId>accounts-api</artifactId>
-			<version>0.0.1</version>
+			<version>1.0.0</version>
 		</dependency>
 
 		<!-- H2 Database -->

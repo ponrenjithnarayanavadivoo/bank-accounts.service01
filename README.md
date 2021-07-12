@@ -14,7 +14,7 @@ mvn clean install
 
 #### Execution
 ```
-java -jar  accounts-0.0.1.jar
+java -jar  accounts-1.0.0.jar
 ```
 
 #### To check the application deployed successfully on your local machine 
