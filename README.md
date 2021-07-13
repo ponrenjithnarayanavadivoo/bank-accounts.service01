@@ -1,5 +1,5 @@
 # Account Service
-  REST Account service is used to create current account for existing ABC bank cutomers and retreive the account details from the relational database.
+  REST Account service is used to create current account for existing ABC bank cutomers and retreive the account details from in-memory H2 database.
   
 ### Prerequisites
 You need the following installed and available in your $PATH:
